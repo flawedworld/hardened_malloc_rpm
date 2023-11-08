@@ -53,6 +53,12 @@ install -D -p -m 644 hardened_malloc.conf %buildroot%_sysconfdir/sysctl.d/harden
 %_bindir/hardened_malloc_preload.sh
 
 %changelog
+* Wed Nov  8 2023 flawedworld <flawedworld@flawed.world> 12-2
+- Set CONFIG_NATIVE to false
+- Mark libraries as executable (change to 755 permissions)
+- Add hardened_malloc_light_preload.sh
+- Fix arm64 building
+
 * Sat Oct 28 2023 flawedworld <flawedworld@flawed.world> 12-1
 - Initial packaging for hardened_malloc version 12, co-authored-by
   Scott Shinn (atomicturtle) and Solar Designer
