@@ -35,8 +35,8 @@ echo 'vm.max_map_count = 1048576' > hardened_malloc.conf
 
 %install
 rm -rf %buildroot
-install -D -p -m 644 out/libhardened_malloc.so %buildroot%_libdir/libhardened_malloc.so
-install -D -p -m 644 out-light/libhardened_malloc-light.so %buildroot%_libdir/libhardened_malloc-light.so
+install -D -p -m 755 out/libhardened_malloc.so %buildroot%_libdir/libhardened_malloc.so
+install -D -p -m 755 out-light/libhardened_malloc-light.so %buildroot%_libdir/libhardened_malloc-light.so
 install -D -p -m 755 preload.sh %buildroot%_bindir/hardened_malloc_preload.sh
 install -D -p -m 644 hardened_malloc.conf %buildroot%_sysconfdir/sysctl.d/hardened_malloc.conf
 
