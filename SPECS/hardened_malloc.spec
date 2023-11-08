@@ -8,8 +8,7 @@ License: MIT
 URL: https://github.com/GrapheneOS/hardened_malloc
 # https://codeload.github.com/GrapheneOS/hardened_malloc/legacy.tar.gz/refs/tags/12
 Source: hardened_malloc-%version.tar.gz
-ExclusiveArch: x86_64
-# Not yet %arm64, fails with "clang-15: error: argument unused during compilation: '-fstack-clash-protection' [-Werror,-Wunused-command-line-argument]" on Rocky Linux 9
+ExclusiveArch: x86_64 %arm64
 BuildRequires: make, clang
 BuildRoot: /override/%name-%version
 
@@ -28,6 +27,8 @@ per size class.
 %setup -q -n GrapheneOS-hardened_malloc-670bd0c
 
 %build
+# This can be dropped once hardened_malloc 13 ships
+sed -i 's,-fstack-clash-protection,$(call safe_flag,-fstack-clash-protection),' Makefile
 make CONFIG_NATIVE=false CC=clang
 make CONFIG_NATIVE=false CC=clang VARIANT=light
 sed -i 's,^dir=.*$,dir=%_libdir,' preload.sh
