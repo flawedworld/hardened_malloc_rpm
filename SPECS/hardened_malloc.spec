@@ -32,12 +32,15 @@ make CONFIG_NATIVE=false CC=clang
 make CONFIG_NATIVE=false CC=clang VARIANT=light
 sed -i 's,^dir=.*$,dir=%_libdir,' preload.sh
 echo 'vm.max_map_count = 1048576' > hardened_malloc.conf
+cp preload.sh hardened_malloc_light_preload.sh
+sed -i 's,libhardened_malloc,libhardened_malloc-light,' hardened_malloc_light_preload.sh
 
 %install
 rm -rf %buildroot
 install -D -p -m 755 out/libhardened_malloc.so %buildroot%_libdir/libhardened_malloc.so
 install -D -p -m 755 out-light/libhardened_malloc-light.so %buildroot%_libdir/libhardened_malloc-light.so
 install -D -p -m 755 preload.sh %buildroot%_bindir/hardened_malloc_preload.sh
+install -D -p -m 755 hardened_malloc_light_preload.sh %buildroot%_bindir/hardened_malloc_light_preload.sh
 install -D -p -m 644 hardened_malloc.conf %buildroot%_sysconfdir/sysctl.d/hardened_malloc.conf
 
 %files
