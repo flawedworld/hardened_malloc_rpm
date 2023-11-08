@@ -28,8 +28,8 @@ per size class.
 %setup -q -n GrapheneOS-hardened_malloc-670bd0c
 
 %build
-make CC=clang
-make CC=clang VARIANT=light
+make CONFIG_NATIVE=false CC=clang
+make CONFIG_NATIVE=false CC=clang VARIANT=light
 sed -i 's,^dir=.*$,dir=%_libdir,' preload.sh
 echo 'vm.max_map_count = 1048576' > hardened_malloc.conf
 
